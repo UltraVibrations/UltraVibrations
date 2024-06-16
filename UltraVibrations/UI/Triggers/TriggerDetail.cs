@@ -60,130 +60,123 @@ public class TriggerDetails(TriggerManagerService triggerManagerService) : IServ
 
         ImGui.Spacing();
 
+        if (ImGui.CollapsingHeader("Matched Phrases"))
         {
-            if (ImGui.CollapsingHeader("Matching"))
+            using var indentSub = ImRaii.PushIndent();
+            ImGui.Spacing();
+
             {
-                using var indentSub = ImRaii.PushIndent();
-                ImGui.Spacing();
+                using var list = ImRaii.Table("##MatchedPhrases", 2,
+                                              ImGuiTableFlags.RowBg | ImGuiTableFlags.Borders);
 
-                {
-                    using var list = ImRaii.Table("##chattypes", 2,
-                                                  ImGuiTableFlags.RowBg | ImGuiTableFlags.Borders);
+                ImGui.TableSetupColumn("##MatchedPhraseRemove",
+                                       ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
+                                       ImGuiTableColumnFlags.NoReorder);
+                ImGui.TableSetupColumn("Matched Phrase (RegEx)",
+                                       ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
+                                       ImGuiTableColumnFlags.NoReorder);
 
-                    ImGui.TableSetupColumn("##ChatTypeRemove",
-                                           ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
-                                           ImGuiTableColumnFlags.NoReorder);
-                    ImGui.TableSetupColumn("Chat Types",
-                                           ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
-                                           ImGuiTableColumnFlags.NoReorder);
+                ImGui.TableHeadersRow();
 
-                    ImGui.TableHeadersRow();
-
-                    var idx = 0;
-                    foreach (var channel in trigger.ChatSettings.ChatChannels)
-                    {
-                        using var id = ImRaii.PushId(++idx);
-                        ImGui.TableNextRow();
-                        ImGui.TableNextColumn();
-                        ImGui.Spacing();
-                        if (ImGuiComponents.IconButton(FontAwesomeIcon.Times.ToIconString()))
-                        {
-                            trigger.ChatSettings.ChatChannels.Remove(channel);
-                            trigger.Save();
-                        }
-
-                        ImGui.Spacing();
-
-                        ImGui.TableNextColumn();
-                        ImGui.Spacing();
-                        ImGui.Text(channel.ToString());
-                    }
-                }
-                ImGui.Spacing();
-                Widget.DrawChatTypeSelector(
-                    "Add Chat Type",
-                    "The types of chat messages to match",
-                    XivChatType.None,
-                    type =>
-                    {
-                        trigger.ChatSettings.ChatChannels.Add(type);
-                        trigger.Save();
-                    }
-                );
-
-                ImGui.Spacing();
-
-                {
-                    using var list = ImRaii.Table("##MatchedPhrases", 1,
-                                                  ImGuiTableFlags.RowBg | ImGuiTableFlags.Borders);
-
-                    ImGui.TableSetupColumn("Matched Phrase",
-                                           ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
-                                           ImGuiTableColumnFlags.NoReorder);
-
-                    ImGui.TableHeadersRow();
-
-                    var idx = 0;
-                    foreach (var matchPhrase in trigger.ChatSettings.MatchedPhrases)
-                    {
-                        using var id = ImRaii.PushId(++idx);
-                        ImGui.TableNextRow();
-                        ImGui.TableNextColumn();
-                        ImGui.Spacing();
-                        var phrase = matchPhrase;
-                        ImGui.InputText($"##MatchedPhrase-{idx}", ref phrase, 100);
-                        // var phrase = matchPhrase;
-                        // if (Widget.InputOrText(true, $"##MatchedPhrase-{idx}", ref phrase, 100))
-                        // {
-                        //     if (phrase != trigger.ChatSettings.MatchedPhrases[idx])
-                        //     {
-                        //         trigger.ChatSettings.MatchedPhrases[idx] = phrase;
-                        //         trigger.ChatSettings.Invalidate();
-                        //         trigger.Save();
-                        //     }
-                        // }
-
-                        ImGui.Spacing();
-                    }
-                }
-
-                ImGui.Text("Matched Text:");
+                var idx = 0;
                 for (var index = 0; index < trigger.ChatSettings.MatchedPhrases.Count; index++)
                 {
                     var matchedPhrase = trigger.ChatSettings.MatchedPhrases[index];
-                    Widget.InputOrText(true, "##MatchedPhrase", ref matchedPhrase, 100);
-                    if (matchedPhrase != trigger.ChatSettings.MatchedPhrases[index])
+                    using var id = ImRaii.PushId(++idx);
+                    ImGui.TableNextRow();
+                    ImGui.TableNextColumn();
+                    ImGui.Spacing();
+                    if (ImGuiComponents.IconButton(FontAwesomeIcon.Times.ToIconString()))
                     {
-                        trigger.ChatSettings.MatchedPhrases[index] = matchedPhrase;
+                        trigger.ChatSettings.MatchedPhrases.RemoveAt(index);
                         trigger.ChatSettings.Invalidate();
                         trigger.Save();
                     }
+
+                    ImGui.Spacing();
+
+                    ImGui.TableNextColumn();
+                    ImGui.Spacing();
+                    ImGui.Text(matchedPhrase);
                 }
             }
+            ImGui.Spacing();
+        }
 
-            if (ImGui.CollapsingHeader("Whitelist"))
+        if (ImGui.CollapsingHeader("Chat Types"))
+        {
+            using var indentSub = ImRaii.PushIndent();
+            ImGui.Spacing();
+
             {
-                using var indentSub = ImRaii.PushIndent();
+                using var list = ImRaii.Table("##chattypes", 2,
+                                              ImGuiTableFlags.RowBg | ImGuiTableFlags.Borders);
 
-                if (trigger.ChatSettings.WhitelistPlayers.Count <= 0)
-                {
-                    ImGui.Text("All");
-                }
+                ImGui.TableSetupColumn("##ChatTypeRemove",
+                                       ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
+                                       ImGuiTableColumnFlags.NoReorder);
+                ImGui.TableSetupColumn("Chat Types",
+                                       ImGuiTableColumnFlags.WidthFixed | ImGuiTableColumnFlags.NoResize |
+                                       ImGuiTableColumnFlags.NoReorder);
 
-                foreach (var player in trigger.ChatSettings.WhitelistPlayers)
+                ImGui.TableHeadersRow();
+
+                var idx = 0;
+                foreach (var channel in trigger.ChatSettings.ChatChannels)
                 {
-                    ImGui.Text(player);
+                    using var id = ImRaii.PushId(++idx);
+                    ImGui.TableNextRow();
+                    ImGui.TableNextColumn();
+                    ImGui.Spacing();
+                    if (ImGuiComponents.IconButton(FontAwesomeIcon.Times.ToIconString()))
+                    {
+                        trigger.ChatSettings.ChatChannels.Remove(channel);
+                        trigger.Save();
+                    }
+
+                    ImGui.Spacing();
+
+                    ImGui.TableNextColumn();
+                    ImGui.Spacing();
+                    ImGui.Text(channel.ToString());
                 }
             }
-
-            if (ImGui.CollapsingHeader("Blacklist"))
-            {
-                using var indentSub = ImRaii.PushIndent();
-                ImGui.Text("Blacklisted:");
-                foreach (var player in trigger.ChatSettings.BlacklistPlayers)
+            ImGui.Spacing();
+            Widget.DrawChatTypeSelector(
+                "Add Chat Type",
+                "The types of chat messages to match",
+                XivChatType.None,
+                type =>
                 {
-                    ImGui.Text(player);
+                    trigger.ChatSettings.ChatChannels.Add(type);
+                    trigger.Save();
                 }
+            );
+            ImGui.Spacing();
+        }
+
+        if (ImGui.CollapsingHeader("Whitelist"))
+        {
+            using var indentSub = ImRaii.PushIndent();
+
+            if (trigger.ChatSettings.WhitelistPlayers.Count <= 0)
+            {
+                ImGui.Text("All");
+            }
+
+            foreach (var player in trigger.ChatSettings.WhitelistPlayers)
+            {
+                ImGui.Text(player);
+            }
+        }
+
+        if (ImGui.CollapsingHeader("Blacklist"))
+        {
+            using var indentSub = ImRaii.PushIndent();
+            ImGui.Text("Blacklisted:");
+            foreach (var player in trigger.ChatSettings.BlacklistPlayers)
+            {
+                ImGui.Text(player);
             }
         }
     }
