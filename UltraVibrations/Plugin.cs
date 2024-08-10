@@ -16,7 +16,7 @@ namespace UltraVibrations
         private readonly UltraVibrationsWindowSystem? windowSystem;
         private readonly Configuration config;
 
-        public Plugin([RequiredVersion("1.0")] DalamudPluginInterface pluginInterface)
+        public Plugin(IDalamudPluginInterface pluginInterface)
         {
             serviceManager = StaticServiceManager.CreateProvider(this, pluginInterface, Log);
             serviceManager.EnsureRequiredServices();

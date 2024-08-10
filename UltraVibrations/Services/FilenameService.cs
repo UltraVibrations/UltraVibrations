@@ -4,7 +4,7 @@ using OtterGui.Services;
 
 namespace UltraVibrations.Services;
 
-public class FilenameService(DalamudPluginInterface pluginInterface): IService
+public class FilenameService(IDalamudPluginInterface pluginInterface): IService
 {
     public readonly string ConfigDirectory = pluginInterface.ConfigDirectory.FullName;
     public readonly string ConfigFile = pluginInterface.ConfigFile.FullName;

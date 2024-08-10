@@ -7,12 +7,12 @@ namespace UltraVibrations.UI;
 
 public class UltraVibrationsWindowSystem : IDisposable
 {
-    private readonly UiBuilder uiBuilder;
+    private readonly IUiBuilder uiBuilder;
     private readonly MainWindow mainWindow;
     private readonly Logger log;
     private readonly WindowSystem windowSystem;
 
-    public UltraVibrationsWindowSystem(UiBuilder uiBuilder, MainWindow mainWindow, Logger log)
+    public UltraVibrationsWindowSystem(IUiBuilder uiBuilder, MainWindow mainWindow, Logger log)
     {
         this.uiBuilder = uiBuilder;
         this.mainWindow = mainWindow;
