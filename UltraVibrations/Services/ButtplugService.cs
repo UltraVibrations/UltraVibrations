@@ -133,7 +133,7 @@ public class ButtplugService : IDisposable
             statusMessage = null;
             return;
         }
-        
+
         if (client.Connected)
         {
             Plugin.Log.Error("Already connected to the Buttplug server.");
