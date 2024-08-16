@@ -88,7 +88,7 @@ public class TriggerManagerService
 
     private void HandleChatReceived(
         XivChatType type,
-        uint senderId,
+        int senderId,
         ref SeString sender,
         ref SeString message,
         ref bool isHandled)

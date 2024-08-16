@@ -13,7 +13,7 @@ namespace UltraVibrations.Services;
 
 public static class StaticServiceManager
 {
-    public static ServiceManager CreateProvider(Plugin plugin, DalamudPluginInterface pi, Logger log)
+    public static ServiceManager CreateProvider(Plugin plugin, IDalamudPluginInterface pi, Logger log)
     {
         var services = new ServiceManager(log)
                        .AddDalamudServices(pi)
@@ -34,7 +34,7 @@ public static class StaticServiceManager
         return services;
     }
 
-    private static ServiceManager AddDalamudServices(this ServiceManager services, DalamudPluginInterface pi)
+    private static ServiceManager AddDalamudServices(this ServiceManager services, IDalamudPluginInterface pi)
         => services.AddExistingService(pi)
                    .AddExistingService(pi.UiBuilder)
                    .AddDalamudService<ICommandManager>(pi)
