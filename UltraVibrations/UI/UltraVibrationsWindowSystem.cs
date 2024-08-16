@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Dalamud.Interface;
 using Dalamud.Interface.Windowing;
 using OtterGui.Log;

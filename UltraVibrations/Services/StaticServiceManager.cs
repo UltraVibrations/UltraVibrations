@@ -1,4 +1,4 @@
-﻿using Dalamud.Game;
+using Dalamud.Game;
 using Dalamud.Game.ClientState.Objects;
 using Dalamud.Interface.DragDrop;
 using Dalamud.Plugin;

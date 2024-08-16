@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Dalamud.Game.Text;
 using ImGuiNET;
 using OtterGui;

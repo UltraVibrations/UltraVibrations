@@ -1,4 +1,4 @@
-﻿namespace UltraVibrations.Source;
+namespace UltraVibrations.Source;
 
 public class ValueSource(double value, double duration) : ISource
 {

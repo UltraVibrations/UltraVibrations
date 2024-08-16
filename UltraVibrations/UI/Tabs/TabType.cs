@@ -1,4 +1,4 @@
-﻿namespace UltraVibrations.UI.Tabs;
+namespace UltraVibrations.UI.Tabs;
 
 public enum TabType
 {

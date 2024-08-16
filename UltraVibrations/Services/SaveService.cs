@@ -1,4 +1,4 @@
-﻿using OtterGui.Classes;
+using OtterGui.Classes;
 using OtterGui.Log;
 using OtterGui.Services;
 

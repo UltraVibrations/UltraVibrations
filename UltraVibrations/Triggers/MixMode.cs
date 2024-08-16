@@ -1,4 +1,4 @@
-﻿namespace UltraVibrations.Triggers;
+namespace UltraVibrations.Triggers;
 
 public enum MixMode
 {

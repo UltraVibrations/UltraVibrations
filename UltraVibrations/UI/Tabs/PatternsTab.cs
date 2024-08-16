@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using OtterGui.Widgets;
 
 namespace UltraVibrations.UI.Tabs;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ImGuiNET;
 using OtterGui.Widgets;
 using UltraVibrations.UI.Triggers;

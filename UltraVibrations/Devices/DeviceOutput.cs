@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Buttplug.Core.Messages;
 using Newtonsoft.Json;
 
