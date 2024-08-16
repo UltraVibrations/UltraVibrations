@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Dalamud.Game.Text;
 using Dalamud.Interface;
@@ -6,7 +5,6 @@ using Dalamud.Interface.Components;
 using ImGuiNET;
 using OtterGui.Raii;
 using OtterGui.Services;
-using OtterGui.Table;
 using OtterGui.Widgets;
 using UltraVibrations.Services;
 using UltraVibrations.Triggers;

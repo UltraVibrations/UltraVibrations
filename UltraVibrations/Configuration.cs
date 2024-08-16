@@ -22,7 +22,7 @@ namespace UltraVibrations
         public Configuration(SaveService saveService)
         {
             this.saveService = saveService;
-            
+
             Load();
         }
 
@@ -58,6 +58,13 @@ namespace UltraVibrations
 
         public string ToFilename(FilenameService fileNames) => fileNames.ConfigFile;
 
-        public void Save(StreamWriter writer) => saveService.QueueSave(this);
+        public void Save() => saveService.QueueSave(this);
+
+        public void Save(StreamWriter writer)
+        {
+            using var jWriter = new JsonTextWriter(writer) { Formatting = Formatting.Indented };
+            var serializer = new JsonSerializer();
+            serializer.Serialize(jWriter, this);
+        }
     }
 }
