@@ -153,6 +153,8 @@ public class ButtplugService : IDisposable
                 return;
             }
 
+            statusMessage = null;
+
             Plugin.Log.Debug("Connected. Triggering scan.");
             OnRequestedScan?.Invoke(this, EventArgs.Empty);
         }
