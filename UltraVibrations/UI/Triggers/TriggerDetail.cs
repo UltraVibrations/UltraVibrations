@@ -14,6 +14,8 @@ namespace UltraVibrations.UI.Triggers;
 
 public class TriggerDetails(TriggerManagerService triggerManagerService) : IService
 {
+    private PhraseInput phraseInput = new();
+    
     public void Draw(string? triggerId)
     {
         using var group = ImRaii.Group();
@@ -92,12 +94,20 @@ public class TriggerDetails(TriggerManagerService triggerManagerService) : IServ
                     }
 
                     ImGui.Spacing();
-
                     ImGui.TableNextColumn();
                     ImGui.Spacing();
                     ImGui.Text(matchedPhrase);
                 }
             }
+            
+            ImGui.Spacing();
+            var phraseToAdd = phraseInput.Draw();
+            if (phraseToAdd is not null)
+            {
+                trigger.ChatSettings.MatchedPhrases.Add(phraseToAdd);
+                trigger.Save();
+            }
+            
             ImGui.Spacing();
         }
 

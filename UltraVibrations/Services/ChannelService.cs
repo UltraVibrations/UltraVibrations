@@ -75,7 +75,7 @@ public class ChannelService : IDisposable
 
             // Prepare output values
             var vibrateValues = new double[buttplugDevice.VibrateAttributes.Count];
-            var rotateValues = new (double, bool)[buttplugDevice.RotateAttributes.Count];
+            var rotateValues = new RotateCmd.RotateCommand[buttplugDevice.RotateAttributes.Count];
             var oscillatorValues = new double[buttplugDevice.OscillateAttributes.Count];
 
             foreach (var deviceOutput in device.Outputs)
@@ -94,7 +94,7 @@ public class ChannelService : IDisposable
                         vibrateValues[deviceOutput.Id] = maxOutput;
                         break;
                     case ActuatorType.Rotate:
-                        rotateValues[deviceOutput.Id] = (maxOutput, false);
+                        rotateValues[deviceOutput.Id] = new RotateCmd.RotateCommand(maxOutput, false);
                         break;
                     case ActuatorType.Oscillate:
                         oscillatorValues[deviceOutput.Id] = maxOutput;

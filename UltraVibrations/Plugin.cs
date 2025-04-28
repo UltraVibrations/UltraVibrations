@@ -39,7 +39,8 @@ namespace UltraVibrations
             });
 
             Log.Debug("UltraVibrations initialized.");
-            windowSystem?.Toggle();
+            if (pluginInterface.IsDev)
+                windowSystem?.Toggle();
         }
 
         private void MainCommand(string command, string args)
